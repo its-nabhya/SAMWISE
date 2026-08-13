@@ -108,7 +108,7 @@ const unsigned long BUZZ_INTERVAL   = 500;
 //=====================================================
 
 bool lastButtonState = LOW;
-bool buttonPressed = false;
+bool stableButtonState = LOW;
 
 unsigned long lastDebounceTime = 0;
 const unsigned long debounceDelay = 50;
@@ -132,30 +132,29 @@ bool readButton()
 {
     bool reading = digitalRead(BUTTON_PIN);
 
-    if(reading != lastButtonState)
+    // Detect any change in the physical button state
+    if (reading != lastButtonState)
     {
         lastDebounceTime = millis();
+        lastButtonState = reading;
     }
 
-    if((millis() - lastDebounceTime) > debounceDelay)
+    // Wait for debounce
+    if ((millis() - lastDebounceTime) > debounceDelay)
     {
-        if(reading == HIGH && !buttonPressed)
+        // State has changed after being stable
+        if (reading != stableButtonState)
         {
-            buttonPressed = true;
-            lastButtonState = reading;
+            stableButtonState = reading;
+
+            // Execute operation whenever button toggles
             return true;
         }
-
-        if(reading == LOW)
-        {
-            buttonPressed = false;
-        }
     }
-
-    lastButtonState = reading;
 
     return false;
 }
+
 
 //=====================================================
 // Continuous Buzzer
