@@ -27,9 +27,9 @@ import edge_tts
 # API KEYS
 # ==========================================================
 
-GROQ_API_KEY = "....................."
+GROQ_API_KEY = ".............................................................................................................."
 
-GEMINI_API_KEY = "............................."
+GEMINI_API_KEY = "..............................................................."
 
 
 # ==========================================================
@@ -1212,7 +1212,6 @@ def remove_wake(text):
 
     return original_text
 
-
 # ==========================================================
 # PROCESS COMMAND
 # ==========================================================
@@ -1225,42 +1224,66 @@ def process_command(command):
     )
 
 
+    # ======================================================
+    # ADD USER MESSAGE TO CONVERSATION
+    # ======================================================
+
+    conversation.append(
+
+        {
+            "role": "user",
+            "content": command
+        }
+
+    )
+
+
+    # ======================================================
+    # GEMINI PRIMARY
+    # ======================================================
+
     try:
 
-        conversation.append(
-
-            {
-                "role": "user",
-                "content": command
-            }
-
-        )
+        history = ""
 
 
-        completion = (
-            groq_client
-            .chat
-            .completions
-            .create(
+        for msg in conversation:
 
-                model=
-                    "qwen/qwen3.6-27b",
+            history += (
 
-                messages=conversation,
-                reasoning_effort="none",
-                temperature=0.3,
+                f"{msg['role']}: "
+                f"{msg['content']}\n"
 
-                max_tokens=100
             )
+
+
+        response = (
+
+            gemini_client
+            .models
+            .generate_content(
+
+                model="gemini-3.6-flash",
+
+                contents=history
+
+            )
+
         )
 
 
-        answer = (
-            completion
-            .choices[0]
-            .message
-            .content
-        )
+        answer = response.text.strip()
+
+
+        # --------------------------------------------------
+        # Make sure Gemini actually returned something
+        # --------------------------------------------------
+
+        if not answer:
+
+            raise RuntimeError(
+                "Gemini returned an empty response."
+            )
 
 
         conversation.append(
@@ -1280,19 +1303,16 @@ def process_command(command):
         print(answer)
 
 
-        # ==================================================
-        # IMPORTANT:
-        # speak() stops the microphone BEFORE TTS.
-        # ==================================================
-
         speak(answer)
 
 
         if len(conversation) > 20:
 
             conversation[:] = (
+
                 [conversation[0]]
                 + conversation[-19:]
+
             )
 
 
@@ -1302,42 +1322,58 @@ def process_command(command):
     except Exception as e:
 
         print(
-            "\nGroq failed."
+            "\nGemini failed."
         )
 
         print(e)
 
 
     # ======================================================
-    # GEMINI FALLBACK
+    # GROQ FALLBACK
     # ======================================================
 
     try:
 
-        history = ""
+        completion = (
 
+            groq_client
+            .chat
+            .completions
+            .create(
 
-        for msg in conversation:
+                model=
+                    "qwen/qwen3.6-27b",
 
-            history += (
-                f"{msg['role']}: "
-                f"{msg['content']}\n"
+                messages=conversation,
+
+                reasoning_effort="none",
+
+                temperature=0.3,
+
+                max_tokens=100
+
             )
 
-
-        response = (
-            gemini_client
-            .models
-            .generate_content(
-
-                model="gemini-3.6-flash",
-
-                contents=history
-            )
         )
 
 
-        answer = response.text
+        answer = (
+
+            completion
+            .choices[0]
+            .message
+            .content
+        )
+
+
+        if not answer:
+
+            raise RuntimeError(
+                "Groq returned an empty response."
+            )
+
+
+        answer = answer.strip()
 
 
         conversation.append(
@@ -1351,7 +1387,7 @@ def process_command(command):
 
 
         print(
-            "\nGemini Fallback:\n"
+            "\nGroq Fallback:\n"
         )
 
         print(answer)
@@ -1363,20 +1399,23 @@ def process_command(command):
         if len(conversation) > 20:
 
             conversation[:] = (
+
                 [conversation[0]]
                 + conversation[-19:]
+
             )
+
+
+        return
 
 
     except Exception as e:
 
         print(
-            "\nGemini also failed."
+            "\nGroq also failed."
         )
 
         print(e)
-
-
 # ==========================================================
 # START AUDIO STREAM
 # ==========================================================
