@@ -1,0 +1,70 @@
+# ============================================================
+# SamWise / Arduino UNO Q
+# ============================================================
+
+# ------------------------------------------------------------
+# Arduino / app caches
+# ------------------------------------------------------------
+.cache/
+.arduino/
+arduino-cache/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# ------------------------------------------------------------
+# Runtime logs / generated results
+# ------------------------------------------------------------
+stage3d6_ml_results.csv
+
+# Local sensor / experimental datasets
+falldata.csv
+fall.csv
+gps.csv
+acctest.csv
+
+# Temporary / experimental model validation artifacts
+models/stage3d6_pc_reference.csv
+models/stage3d6_uno_q_input_package.npz
+models/stage3d6_uno_q_result_template.csv
+models/waist_equivalence_vectors.npz
+models/thigh_equivalence_vectors.npz
+
+# Keep equivalence metadata JSON if desired for documentation/audit
+# models/*equivalence*.json
+
+# ------------------------------------------------------------
+# Local configuration / secrets
+# ------------------------------------------------------------
+.env
+.env.*
+*.secret
+*.secrets
+*.key
+*.pem
+*.crt
+
+# ------------------------------------------------------------
+# OS / editor files
+# ------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ------------------------------------------------------------
+# Temporary files
+# ------------------------------------------------------------
+*.tmp
+*.temp
+*.bak
+*~

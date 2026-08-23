@@ -1,0 +1,47 @@
+{
+  "format_version": "1.0",
+  "model_type": "BaselineCNN",
+  "experiment": "W2-KF-FROZEN-CANONICAL",
+  "input_channels": 3,
+  "input_channel_names": [
+    "AccX",
+    "AccY",
+    "AccZ"
+  ],
+  "sampling_rate_hz": 100.0,
+  "window_sec": 2.5,
+  "window_samples": 250,
+  "overlap": 0.5,
+  "canonical_unit": "g",
+  "canonical_axis_transform": "[-X, -Y, +Z]",
+  "normalization": {
+    "mean": [
+      0.043933141976594925,
+      -0.4208561182022095,
+      0.0652138888835907
+    ],
+    "std": [
+      0.17782951891422272,
+      0.723371684551239,
+      0.5445636510848999
+    ]
+  },
+  "checkpoint": "D:\\Code\\Projects\\Robu\\KFall Dataset\\stage3d_waist_transfer_outputs\\WAIST_W2_KF_FROZEN_CANONICAL_2.5s.pt",
+  "onnx": "D:\\Code\\Projects\\Robu\\KFall Dataset\\unoq_deployment\\WAIST_W2_KF_FROZEN_CANONICAL_2.5s.onnx",
+  "opset": 18,
+  "runtime": {
+    "onnxruntime": "1.29.0",
+    "providers": [
+      "AzureExecutionProvider",
+      "CPUExecutionProvider"
+    ]
+  },
+  "equivalence": {
+    "synthetic_logit_error": 3.814697265625e-06,
+    "synthetic_probability_error": 2.220446049250313e-16,
+    "real_max_logit_error": 9.5367431640625e-07,
+    "real_mean_logit_error": 2.384185791015625e-07,
+    "logit_tolerance": 0.0001,
+    "probability_tolerance": 1e-05
+  }
+}

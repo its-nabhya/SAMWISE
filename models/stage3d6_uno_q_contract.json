@@ -1,0 +1,95 @@
+{
+  "stage": "3D.6",
+  "purpose": "PC-to-UNO-Q numerical equivalence test against Stage-3D.5 golden vectors",
+  "golden_source": "D:\\Code\\Projects\\Robu\\KFall Dataset\\stage3d5_golden_outputs\\stage3d5_golden_tensors.npz",
+  "golden_prediction_reference": "D:\\Code\\Projects\\Robu\\KFall Dataset\\stage3d5_golden_outputs\\stage3d5_golden_predictions.csv",
+  "golden_vector_count": 30,
+  "tensor_contract": {
+    "sampling_hz": 100.0,
+    "window_samples": 250,
+    "hop_samples": 125,
+    "waist_shape": [
+      3,
+      250
+    ],
+    "thigh_shape": [
+      3,
+      250
+    ],
+    "waist_channel_order": [
+      "waist_ax",
+      "waist_ay",
+      "waist_az"
+    ],
+    "thigh_channel_order": [
+      "thigh_ax",
+      "thigh_ay",
+      "thigh_az"
+    ]
+  },
+  "normalization_contract": {
+    "waist_mean": [
+      0.043933141976594925,
+      -0.4208561182022095,
+      0.0652138888835907
+    ],
+    "waist_std": [
+      0.17782951891422272,
+      0.723371684551239,
+      0.5445636510848999
+    ],
+    "thigh_mean": [
+      -6.501838684082031,
+      -1.0582934617996216,
+      -1.4698399305343628
+    ],
+    "thigh_std": [
+      3.9341483116149902,
+      10.274575233459473,
+      6.669708251953125
+    ]
+  },
+  "model_contract": {
+    "waist": "W2-KF-FROZEN-CANONICAL",
+    "thigh": "T1-THIGH-A-CNN",
+    "t1_calibrator_a": 10.866962009627777,
+    "t1_calibrator_b": -1.9291989676100594
+  },
+  "fusion_contract": {
+    "waist_weight": 0.3,
+    "thigh_weight": 0.7
+  },
+  "decision_contract": {
+    "ema_alpha": 0.5,
+    "threshold": 0.55
+  },
+  "acceptance_tolerances": {
+    "raw_tensor_abs": 1e-06,
+    "normalized_tensor_abs": 1e-05,
+    "logit_abs": 0.0001,
+    "probability_abs": 1e-05,
+    "ema_abs": 1e-05,
+    "decision_exact": true
+  },
+  "source_hashes": {
+    "golden_npz_sha256": "78344cea1ad93c7fcac244835ac2a32f0a527c6778ba8b7274a810dd9f79dda3",
+    "golden_csv_sha256": "23c5a40c0190a3841b67c7578bd80a930aebfff601fb5a3469ea3997947f21d7",
+    "golden_manifest_sha256": "afd60cb8625ba409018ed6c28ef377eb6cdea9fa83d370a675b7270b408c4435"
+  },
+  "uno_q_result_format": {
+    "required_columns": [
+      "golden_id",
+      "w2_logit",
+      "w2_probability",
+      "t1_raw_logit",
+      "t1_raw_probability",
+      "t1_calibrated_probability",
+      "fusion_probability",
+      "ema_probability",
+      "fall_decision"
+    ],
+    "one_row_per_golden_id": true,
+    "golden_id_must_match_exactly": true
+  },
+  "status": "PC reference generated; UNO-Q equivalence has not yet been demonstrated."
+}

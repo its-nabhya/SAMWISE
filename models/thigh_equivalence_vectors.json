@@ -1,0 +1,29 @@
+{
+  "format_version": 1,
+  "checkpoint": "T1-THIGH-A_2.5s.pt",
+  "data_file": "falldata.csv",
+  "sampling_rate_hz": 100,
+  "window_samples": 250,
+  "window_sec": 2.5,
+  "stride_samples": 125,
+  "stride_sec": 1.25,
+  "channels": [
+    "thigh_ax",
+    "thigh_ay",
+    "thigh_az"
+  ],
+  "normalization": {
+    "mean": [
+      -6.65573263168335,
+      -1.8606187105178833,
+      0.9055759906768799
+    ],
+    "std": [
+      3.7950503826141357,
+      12.852043151855469,
+      6.407566070556641
+    ]
+  },
+  "vector_count": 20,
+  "npz_file": "thigh_equivalence_vectors.npz"
+}

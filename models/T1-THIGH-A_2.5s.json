@@ -1,0 +1,72 @@
+{
+  "format_version": 2,
+  "model_type": "BaselineCNN",
+  "experiment": "T1-THIGH-A-CNN",
+  "onnx_file": "T1-THIGH-A_2.5s.onnx",
+  "source_checkpoint": "T1_THIGH_A_2.5s.pt",
+  "input": {
+    "name": "input",
+    "shape": [
+      "batch",
+      3,
+      250
+    ],
+    "dtype": "float32",
+    "channels": [
+      "thigh_ax",
+      "thigh_ay",
+      "thigh_az"
+    ]
+  },
+  "output": {
+    "name": "logit",
+    "shape": [
+      "batch"
+    ],
+    "meaning": "fall logit",
+    "probability": "sigmoid(logit)"
+  },
+  "sampling_rate_hz": 100.0,
+  "window_sec": 2.5,
+  "window_samples": 250,
+  "overlap": 0.5,
+  "normalization": {
+    "mean": [
+      -6.501838684082031,
+      -1.0582934617996216,
+      -1.4698399305343628
+    ],
+    "std": [
+      3.9341483116149902,
+      10.274575233459473,
+      6.669708251953125
+    ],
+    "axis_contract": "[batch, samples, channels]",
+    "model_contract": "[batch, channels, samples]"
+  },
+  "input_channel_names": [
+    "thigh_ax",
+    "thigh_ay",
+    "thigh_az"
+  ],
+  "calibration": {
+    "type": "Platt",
+    "a": 10.866962009627777,
+    "b": -1.9291989676100594,
+    "formula": "sigmoid(a * raw_logit + b)"
+  },
+  "cpu_only": true,
+  "frozen_for_inference": true,
+  "equivalence": {
+    "synthetic": {
+      "passed": true
+    },
+    "stage3d6_golden": {
+      "vector_count": 30,
+      "max_logit_abs_error": 7.152557373046875e-07,
+      "max_probability_abs_error": 3.754849331460974e-08,
+      "max_calibrated_probability_abs_error": 8.087032909998015e-08,
+      "passed": true
+    }
+  }
+}

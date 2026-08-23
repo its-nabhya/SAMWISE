@@ -1,0 +1,25 @@
+{
+  "sampling_rate_hz": 100,
+  "window_samples": 300,
+  "window_sec": 3.0,
+  "stride_samples": 150,
+  "num_vectors": 1,
+  "normalization": {
+    "mean": [
+      0.02554231695830822,
+      -0.7259705662727356,
+      -0.0075103347189724445
+    ],
+    "std": [
+      0.35707953572273254,
+      0.529985249042511,
+      0.5223188400268555
+    ]
+  },
+  "input_channels": [
+    "waist_ax",
+    "waist_ay",
+    "waist_az"
+  ],
+  "source": "D:\\Code\\Projects\\Robu\\KFall Dataset\\falldata.csv"
+}

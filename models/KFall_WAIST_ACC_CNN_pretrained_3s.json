@@ -1,0 +1,45 @@
+{
+  "model": "KFall_WAIST_ACC_CNN_pretrained",
+  "model_type": "BaselineCNN",
+  "experiment": "W-A-CNN",
+  "input_channels": 3,
+  "input_channel_names": [
+    "waist_ax",
+    "waist_ay",
+    "waist_az"
+  ],
+  "sampling_rate_hz": 100,
+  "deployment_window_sec": 3.0,
+  "deployment_window_samples": 300,
+  "deployment_stride_samples": 150,
+  "deployment_overlap": 0.5,
+  "normalization": {
+    "mean": [
+      0.02554231695830822,
+      -0.7259705662727356,
+      -0.0075103347189724445
+    ],
+    "std": [
+      0.35707953572273254,
+      0.529985249042511,
+      0.5223188400268555
+    ]
+  },
+  "input_tensor_layout": [
+    "batch",
+    "channels",
+    "samples"
+  ],
+  "output": "logit",
+  "probability": "sigmoid(logit)",
+  "onnx_opset": 17,
+  "preprocessing_location": "application",
+  "inference_runtime": "ONNX Runtime",
+  "notes": [
+    "CNN architecture is unchanged.",
+    "No quantization applied.",
+    "No retraining performed.",
+    "Only first three checkpoint normalization values are used because this is a 3-channel ACC model.",
+    "The 20-second device history is not the CNN input."
+  ]
+}
