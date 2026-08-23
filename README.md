@@ -1,5 +1,6 @@
+# SAMWISE- Situationally Aware Multi-modal Wearable for Intelligence Safety & Emergency response
 
-# SanWise Fall Detection — ML System
+# Fall Detection — ML System
 
 ## Overview
 
